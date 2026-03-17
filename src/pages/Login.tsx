@@ -1,37 +1,48 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FlaskConical, Lock, KeyRound, Eye, EyeOff } from 'lucide-react';
+import { FlaskConical, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { useAuth } from '@/contexts/AuthContext';
 
-type LoginStep = 'credentials' | 'otp';
+type LoginStep = 'login' | 'register';
 
-export default function LoginPage({ onLogin }: { onLogin: () => void }) {
-  const [step, setStep] = useState<LoginStep>('credentials');
+export default function LoginPage() {
+  const { signIn, signUp } = useAuth();
+  const [step, setStep] = useState<LoginStep>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleCredentials = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError('Plotëso të gjitha fushat');
-      return;
-    }
+    if (!email || !password) { setError('Plotëso të gjitha fushat'); return; }
+    setLoading(true);
     setError('');
-    setStep('otp');
+    const { error } = await signIn(email, password);
+    if (error) setError(error);
+    setLoading(false);
   };
 
-  const handleOtp = () => {
-    if (otp.length === 6) {
-      onLogin();
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password || !fullName) { setError('Plotëso të gjitha fushat'); return; }
+    if (password.length < 6) { setError('Fjalëkalimi duhet të ketë të paktën 6 karaktere'); return; }
+    setLoading(true);
+    setError('');
+    const { error } = await signUp(email, password, fullName);
+    if (error) {
+      setError(error);
     } else {
-      setError('Fut kodin 6-shifror');
+      setSuccess('Llogaria u krijua! Kontrollo emailin për konfirmim.');
+      setStep('login');
     }
+    setLoading(false);
   };
 
   return (
@@ -52,8 +63,8 @@ export default function LoginPage({ onLogin }: { onLogin: () => void }) {
         </div>
 
         <div className="card-elevated p-6">
-          {step === 'credentials' ? (
-            <form onSubmit={handleCredentials} className="space-y-4">
+          {step === 'login' ? (
+            <form onSubmit={handleLogin} className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="w-4 h-4 text-primary" />
                 <h2 className="font-display text-sm font-semibold">Identifikimi</h2>
@@ -61,80 +72,71 @@ export default function LoginPage({ onLogin }: { onLogin: () => void }) {
 
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-xs">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="email@uni.edu"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="h-9 text-sm bg-muted border-border"
-                />
+                <Input id="email" type="email" placeholder="email@uni.edu" value={email}
+                  onChange={e => setEmail(e.target.value)} className="h-9 text-sm bg-muted border-border" />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-xs">Fjalëkalimi</Label>
                 <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="h-9 text-sm bg-muted border-border pr-9"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  >
+                  <Input id="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••"
+                    value={password} onChange={e => setPassword(e.target.value)}
+                    className="h-9 text-sm bg-muted border-border pr-9" />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                     {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>
 
               {error && <p className="text-xs text-destructive">{error}</p>}
+              {success && <p className="text-xs text-success">{success}</p>}
 
-              <Button type="submit" className="w-full h-9 text-sm font-medium">
-                Vazhdo
+              <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
+                {loading ? 'Duke hyrë...' : 'Hyr'}
               </Button>
+
+              <button type="button" onClick={() => { setStep('register'); setError(''); setSuccess(''); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                Nuk ke llogari? <span className="text-primary">Regjistrohu</span>
+              </button>
             </form>
           ) : (
-            <div className="space-y-4">
+            <form onSubmit={handleRegister} className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
-                <KeyRound className="w-4 h-4 text-primary" />
-                <h2 className="font-display text-sm font-semibold">Verifikimi 2FA</h2>
+                <UserPlus className="w-4 h-4 text-primary" />
+                <h2 className="font-display text-sm font-semibold">Regjistrimi</h2>
               </div>
 
-              <p className="text-xs text-muted-foreground">
-                Kodi 6-shifror u dërgua në <span className="text-foreground font-medium">{email}</span>
-              </p>
+              <div className="space-y-2">
+                <Label htmlFor="fullName" className="text-xs">Emri i plotë</Label>
+                <Input id="fullName" placeholder="Emri Mbiemri" value={fullName}
+                  onChange={e => setFullName(e.target.value)} className="h-9 text-sm bg-muted border-border" />
+              </div>
 
-              <div className="flex justify-center py-2">
-                <InputOTP maxLength={6} value={otp} onChange={setOtp}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
+              <div className="space-y-2">
+                <Label htmlFor="regEmail" className="text-xs">Email</Label>
+                <Input id="regEmail" type="email" placeholder="email@uni.edu" value={email}
+                  onChange={e => setEmail(e.target.value)} className="h-9 text-sm bg-muted border-border" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="regPassword" className="text-xs">Fjalëkalimi</Label>
+                <Input id="regPassword" type="password" placeholder="Min. 6 karaktere" value={password}
+                  onChange={e => setPassword(e.target.value)} className="h-9 text-sm bg-muted border-border" />
               </div>
 
               {error && <p className="text-xs text-destructive">{error}</p>}
 
-              <Button onClick={handleOtp} className="w-full h-9 text-sm font-medium">
-                Verifiko & Hyr
+              <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
+                {loading ? 'Duke regjistruar...' : 'Regjistrohu'}
               </Button>
 
-              <button
-                onClick={() => { setStep('credentials'); setOtp(''); setError(''); }}
-                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Kthehu pas
+              <button type="button" onClick={() => { setStep('login'); setError(''); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                ← Kthehu te identifikimi
               </button>
-            </div>
+            </form>
           )}
         </div>
 
