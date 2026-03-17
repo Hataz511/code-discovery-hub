@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AppLayout from "@/components/AppLayout";
 import LoginPage from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
@@ -20,44 +20,52 @@ import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function AppContent() {
+  const { session, loading } = useAuth();
 
-  if (!isLoggedIn) {
+  if (loading) {
     return (
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      </TooltipProvider>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
     );
   }
 
+  if (!session) {
+    return <LoginPage />;
+  }
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppLayout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/inventory" element={<InventoryPage />} />
-              <Route path="/requests" element={<RequestsPage />} />
-              <Route path="/experiments" element={<ExperimentsPage />} />
-              <Route path="/equipment" element={<EquipmentPage />} />
-              <Route path="/incidents" element={<IncidentsPage />} />
-              <Route path="/waste" element={<WastePage />} />
-              <Route path="/analytics" element={<AnalyticsPage />} />
-              <Route path="/audit" element={<AuditLogPage />} />
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AppLayout>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/requests" element={<RequestsPage />} />
+          <Route path="/experiments" element={<ExperimentsPage />} />
+          <Route path="/equipment" element={<EquipmentPage />} />
+          <Route path="/incidents" element={<IncidentsPage />} />
+          <Route path="/waste" element={<WastePage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/audit" element={<AuditLogPage />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppLayout>
+    </BrowserRouter>
   );
-};
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
