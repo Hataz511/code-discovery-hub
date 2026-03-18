@@ -109,6 +109,18 @@ export default function InventoryPage() {
               <SelectItem value="critical">Kritik</SelectItem>
             </SelectContent>
           </Select>
+          <Select value={labFilter} onValueChange={v => setLabFilter(v)}>
+            <SelectTrigger className="w-48 h-9 text-sm bg-muted border-border">
+              <Package className="w-3.5 h-3.5 mr-2" />
+              <SelectValue placeholder="Laboratori" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Të gjitha laboratorët</SelectItem>
+              {labLocations.map(lab => (
+                <SelectItem key={lab} value={lab}>{lab.replace('Lab - ', '')}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <Button onClick={() => setShowAddDialog(true)} size="sm" className="h-9">
           <Plus className="w-3.5 h-3.5 mr-1.5" /> Shto Kimikat
