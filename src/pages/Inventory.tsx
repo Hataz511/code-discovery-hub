@@ -236,7 +236,23 @@ export default function InventoryPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label className="text-xs">Lokacioni *</Label>
-                <Input className="h-8 text-sm bg-muted" value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} />
+                <Select value={form.location} onValueChange={v => setForm(f => ({ ...f, location: v }))}>
+                  <SelectTrigger className="h-8 text-sm bg-muted"><SelectValue placeholder="Zgjidh laboratorin" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Lab - Kimi e Përgjithshme">Kimi e Përgjithshme</SelectItem>
+                    <SelectItem value="Lab - Kimi Fizike 1">Kimi Fizike 1</SelectItem>
+                    <SelectItem value="Lab - Kimi Fizike 2">Kimi Fizike 2</SelectItem>
+                    <SelectItem value="Lab - Kimi Organike 1">Kimi Organike 1</SelectItem>
+                    <SelectItem value="Lab - Kimi Organike 2">Kimi Organike 2</SelectItem>
+                    <SelectItem value="Lab - Kimi Organike 3">Kimi Organike 3</SelectItem>
+                    <SelectItem value="Lab - Kimi Analitike 1">Kimi Analitike 1</SelectItem>
+                    <SelectItem value="Lab - Kimi Analitike 2">Kimi Analitike 2</SelectItem>
+                    <SelectItem value="Lab - Bioteknologji">Bioteknologji</SelectItem>
+                    <SelectItem value="Lab - Kimia e Mjedisit">Kimia e Mjedisit</SelectItem>
+                    <SelectItem value="Lab - Biokimia 1">Biokimia 1</SelectItem>
+                    <SelectItem value="Hazard Vault">Hazard Vault</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-1.5">
                 <Label className="text-xs">Data e Skadimit *</Label>
