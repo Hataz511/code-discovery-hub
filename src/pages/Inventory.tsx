@@ -30,9 +30,17 @@ const hazardLabels: Record<HazardLevel, string> = {
   low: 'I Ulët', medium: 'Mesatar', high: 'I Lartë', critical: 'Kritik',
 };
 
+const labLocations = [
+  'Lab - Kimi e Përgjithshme', 'Lab - Kimi Fizike 1', 'Lab - Kimi Fizike 2',
+  'Lab - Kimi Organike 1', 'Lab - Kimi Organike 2', 'Lab - Kimi Organike 3',
+  'Lab - Kimi Analitike 1', 'Lab - Kimi Analitike 2', 'Lab - Bioteknologji',
+  'Lab - Kimia e Mjedisit', 'Lab - Biokimia 1', 'Hazard Vault',
+];
+
 export default function InventoryPage() {
   const [search, setSearch] = useState('');
   const [hazardFilter, setHazardFilter] = useState<HazardLevel | 'all'>('all');
+  const [labFilter, setLabFilter] = useState<string>('all');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [chemicals, setChemicals] = useState(mockChemicals);
 
@@ -48,9 +56,10 @@ export default function InventoryPage() {
       const matchSearch = !search || c.name.toLowerCase().includes(search.toLowerCase()) ||
         c.casNumber.includes(search) || c.formula.toLowerCase().includes(search.toLowerCase());
       const matchHazard = hazardFilter === 'all' || c.hazardLevel === hazardFilter;
-      return matchSearch && matchHazard;
+      const matchLab = labFilter === 'all' || c.location === labFilter;
+      return matchSearch && matchHazard && matchLab;
     });
-  }, [chemicals, search, hazardFilter]);
+  }, [chemicals, search, hazardFilter, labFilter]);
 
   const handleAdd = () => {
     const newChem: Chemical = {
