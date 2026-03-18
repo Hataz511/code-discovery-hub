@@ -22,16 +22,76 @@ export const mockUsers: User[] = [
 ];
 
 export const mockChemicals: Chemical[] = [
-  { id: 'c-001', name: 'Hydrochloric Acid', casNumber: '7647-01-0', formula: 'HCl', hazardLevel: 'high', quantity: 2500, unit: 'mL', minimumStock: 500, location: 'Lab - Kimi Analitike 1', expiryDate: '2026-04-15', supplier: 'Sigma-Aldrich', createdAt: '2025-01-10', updatedAt: '2026-03-15' },
-  { id: 'c-002', name: 'Sodium Hydroxide', casNumber: '1310-73-2', formula: 'NaOH', hazardLevel: 'high', quantity: 1200, unit: 'g', minimumStock: 300, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2027-01-20', supplier: 'Merck', createdAt: '2025-01-10', updatedAt: '2026-03-14' },
-  { id: 'c-003', name: 'Ethanol', casNumber: '64-17-5', formula: 'C₂H₅OH', hazardLevel: 'medium', quantity: 4500, unit: 'mL', minimumStock: 1000, location: 'Lab - Bioteknologji', expiryDate: '2026-12-01', supplier: 'Fisher Scientific', createdAt: '2025-02-05', updatedAt: '2026-03-10' },
-  { id: 'c-004', name: 'Sulfuric Acid', casNumber: '7664-93-9', formula: 'H₂SO₄', hazardLevel: 'critical', quantity: 800, unit: 'mL', minimumStock: 200, location: 'Hazard Vault', expiryDate: '2026-06-30', supplier: 'Sigma-Aldrich', createdAt: '2025-01-15', updatedAt: '2026-03-12' },
-  { id: 'c-005', name: 'Acetone', casNumber: '67-64-1', formula: '(CH₃)₂CO', hazardLevel: 'medium', quantity: 3000, unit: 'mL', minimumStock: 800, location: 'Lab - Kimi Organike 1', expiryDate: '2026-11-15', supplier: 'VWR', createdAt: '2025-03-01', updatedAt: '2026-03-16' },
-  { id: 'c-006', name: 'Potassium Permanganate', casNumber: '7722-64-7', formula: 'KMnO₄', hazardLevel: 'high', quantity: 150, unit: 'g', minimumStock: 200, location: 'Lab - Kimi Fizike 1', expiryDate: '2026-08-20', supplier: 'Merck', createdAt: '2025-04-10', updatedAt: '2026-03-15' },
-  { id: 'c-007', name: 'Methanol', casNumber: '67-56-1', formula: 'CH₃OH', hazardLevel: 'high', quantity: 1800, unit: 'mL', minimumStock: 500, location: 'Lab - Kimi Organike 2', expiryDate: '2026-04-01', supplier: 'Fisher Scientific', createdAt: '2025-05-20', updatedAt: '2026-03-14' },
-  { id: 'c-008', name: 'Sodium Chloride', casNumber: '7647-14-5', formula: 'NaCl', hazardLevel: 'low', quantity: 5000, unit: 'g', minimumStock: 1000, location: 'Lab - Kimia e Mjedisit', expiryDate: '2028-01-01', supplier: 'VWR', createdAt: '2025-01-05', updatedAt: '2026-03-16' },
-  { id: 'c-009', name: 'Phenolphthalein', casNumber: '77-09-8', formula: 'C₂₀H₁₄O₄', hazardLevel: 'low', quantity: 50, unit: 'g', minimumStock: 20, location: 'Lab - Biokimia 1', expiryDate: '2027-06-15', supplier: 'Sigma-Aldrich', createdAt: '2025-06-01', updatedAt: '2026-03-10' },
-  { id: 'c-010', name: 'Hydrogen Peroxide 30%', casNumber: '7722-84-1', formula: 'H₂O₂', hazardLevel: 'high', quantity: 400, unit: 'mL', minimumStock: 500, location: 'Hazard Vault', expiryDate: '2026-03-25', supplier: 'Merck', createdAt: '2025-07-15', updatedAt: '2026-03-17' },
+  // ── Lab - Kimi e Përgjithshme ──
+  { id: 'c-001', name: 'Sodium Hydroxide', casNumber: '1310-73-2', formula: 'NaOH', hazardLevel: 'high', quantity: 1200, unit: 'g', minimumStock: 300, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2027-01-20', supplier: 'Merck', createdAt: '2025-01-10', updatedAt: '2026-03-14' },
+  { id: 'c-002', name: 'Hydrochloric Acid', casNumber: '7647-01-0', formula: 'HCl', hazardLevel: 'high', quantity: 2500, unit: 'mL', minimumStock: 500, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2026-04-15', supplier: 'Sigma-Aldrich', createdAt: '2025-01-10', updatedAt: '2026-03-15' },
+  { id: 'c-003', name: 'Sodium Chloride', casNumber: '7647-14-5', formula: 'NaCl', hazardLevel: 'low', quantity: 5000, unit: 'g', minimumStock: 1000, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2028-01-01', supplier: 'VWR', createdAt: '2025-01-05', updatedAt: '2026-03-16' },
+  { id: 'c-004', name: 'Phenolphthalein', casNumber: '77-09-8', formula: 'C₂₀H₁₄O₄', hazardLevel: 'low', quantity: 50, unit: 'g', minimumStock: 20, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2027-06-15', supplier: 'Sigma-Aldrich', createdAt: '2025-06-01', updatedAt: '2026-03-10' },
+  { id: 'c-005', name: 'Copper Sulfate', casNumber: '7758-99-8', formula: 'CuSO₄·5H₂O', hazardLevel: 'medium', quantity: 800, unit: 'g', minimumStock: 200, location: 'Lab - Kimi e Përgjithshme', expiryDate: '2027-09-10', supplier: 'Merck', createdAt: '2025-02-15', updatedAt: '2026-03-12' },
+
+  // ── Lab - Kimi Fizike 1 ──
+  { id: 'c-006', name: 'Potassium Chloride', casNumber: '7447-40-7', formula: 'KCl', hazardLevel: 'low', quantity: 2000, unit: 'g', minimumStock: 500, location: 'Lab - Kimi Fizike 1', expiryDate: '2027-12-01', supplier: 'Merck', createdAt: '2025-03-01', updatedAt: '2026-03-15' },
+  { id: 'c-007', name: 'Silver Nitrate', casNumber: '7761-88-8', formula: 'AgNO₃', hazardLevel: 'high', quantity: 100, unit: 'g', minimumStock: 30, location: 'Lab - Kimi Fizike 1', expiryDate: '2027-03-20', supplier: 'Sigma-Aldrich', createdAt: '2025-04-10', updatedAt: '2026-03-14' },
+  { id: 'c-008', name: 'Acetic Acid (Glacial)', casNumber: '64-19-7', formula: 'CH₃COOH', hazardLevel: 'medium', quantity: 1500, unit: 'mL', minimumStock: 400, location: 'Lab - Kimi Fizike 1', expiryDate: '2026-11-30', supplier: 'Fisher Scientific', createdAt: '2025-02-20', updatedAt: '2026-03-10' },
+  { id: 'c-009', name: 'Sucrose', casNumber: '57-50-1', formula: 'C₁₂H₂₂O₁₁', hazardLevel: 'low', quantity: 3000, unit: 'g', minimumStock: 500, location: 'Lab - Kimi Fizike 1', expiryDate: '2028-06-01', supplier: 'VWR', createdAt: '2025-01-15', updatedAt: '2026-03-16' },
+
+  // ── Lab - Kimi Fizike 2 ──
+  { id: 'c-010', name: 'Zinc Sulfate', casNumber: '7733-02-0', formula: 'ZnSO₄', hazardLevel: 'medium', quantity: 600, unit: 'g', minimumStock: 150, location: 'Lab - Kimi Fizike 2', expiryDate: '2027-05-15', supplier: 'Merck', createdAt: '2025-05-01', updatedAt: '2026-03-12' },
+  { id: 'c-011', name: 'Copper(II) Chloride', casNumber: '7447-39-4', formula: 'CuCl₂', hazardLevel: 'medium', quantity: 400, unit: 'g', minimumStock: 100, location: 'Lab - Kimi Fizike 2', expiryDate: '2027-08-20', supplier: 'Sigma-Aldrich', createdAt: '2025-03-15', updatedAt: '2026-03-14' },
+  { id: 'c-012', name: 'Potassium Iodide', casNumber: '7681-11-0', formula: 'KI', hazardLevel: 'low', quantity: 350, unit: 'g', minimumStock: 100, location: 'Lab - Kimi Fizike 2', expiryDate: '2027-04-10', supplier: 'Fisher Scientific', createdAt: '2025-06-10', updatedAt: '2026-03-15' },
+  { id: 'c-013', name: 'Sodium Thiosulfate', casNumber: '7772-98-7', formula: 'Na₂S₂O₃', hazardLevel: 'low', quantity: 900, unit: 'g', minimumStock: 200, location: 'Lab - Kimi Fizike 2', expiryDate: '2027-11-30', supplier: 'VWR', createdAt: '2025-04-20', updatedAt: '2026-03-16' },
+
+  // ── Lab - Kimi Organike 1 ──
+  { id: 'c-014', name: 'Acetone', casNumber: '67-64-1', formula: '(CH₃)₂CO', hazardLevel: 'medium', quantity: 3000, unit: 'mL', minimumStock: 800, location: 'Lab - Kimi Organike 1', expiryDate: '2026-11-15', supplier: 'VWR', createdAt: '2025-03-01', updatedAt: '2026-03-16' },
+  { id: 'c-015', name: 'Ethanol', casNumber: '64-17-5', formula: 'C₂H₅OH', hazardLevel: 'medium', quantity: 4500, unit: 'mL', minimumStock: 1000, location: 'Lab - Kimi Organike 1', expiryDate: '2026-12-01', supplier: 'Fisher Scientific', createdAt: '2025-02-05', updatedAt: '2026-03-10' },
+  { id: 'c-016', name: 'Toluene', casNumber: '108-88-3', formula: 'C₆H₅CH₃', hazardLevel: 'high', quantity: 1000, unit: 'mL', minimumStock: 300, location: 'Lab - Kimi Organike 1', expiryDate: '2026-10-20', supplier: 'Sigma-Aldrich', createdAt: '2025-04-15', updatedAt: '2026-03-14' },
+  { id: 'c-017', name: 'Benzaldehyde', casNumber: '100-52-7', formula: 'C₆H₅CHO', hazardLevel: 'medium', quantity: 500, unit: 'mL', minimumStock: 100, location: 'Lab - Kimi Organike 1', expiryDate: '2026-09-15', supplier: 'Merck', createdAt: '2025-05-10', updatedAt: '2026-03-12' },
+
+  // ── Lab - Kimi Organike 2 ──
+  { id: 'c-018', name: 'Methanol', casNumber: '67-56-1', formula: 'CH₃OH', hazardLevel: 'high', quantity: 1800, unit: 'mL', minimumStock: 500, location: 'Lab - Kimi Organike 2', expiryDate: '2026-04-01', supplier: 'Fisher Scientific', createdAt: '2025-05-20', updatedAt: '2026-03-14' },
+  { id: 'c-019', name: 'Diethyl Ether', casNumber: '60-29-7', formula: '(C₂H₅)₂O', hazardLevel: 'critical', quantity: 800, unit: 'mL', minimumStock: 200, location: 'Lab - Kimi Organike 2', expiryDate: '2026-07-15', supplier: 'Sigma-Aldrich', createdAt: '2025-06-01', updatedAt: '2026-03-15' },
+  { id: 'c-020', name: 'Chloroform', casNumber: '67-66-3', formula: 'CHCl₃', hazardLevel: 'critical', quantity: 600, unit: 'mL', minimumStock: 200, location: 'Lab - Kimi Organike 2', expiryDate: '2026-08-20', supplier: 'Merck', createdAt: '2025-03-25', updatedAt: '2026-03-16' },
+  { id: 'c-021', name: 'Acetic Anhydride', casNumber: '108-24-7', formula: '(CH₃CO)₂O', hazardLevel: 'high', quantity: 400, unit: 'mL', minimumStock: 100, location: 'Lab - Kimi Organike 2', expiryDate: '2027-02-10', supplier: 'VWR', createdAt: '2025-07-05', updatedAt: '2026-03-12' },
+
+  // ── Lab - Kimi Organike 3 ──
+  { id: 'c-022', name: 'Dimethylformamide (DMF)', casNumber: '68-12-2', formula: 'C₃H₇NO', hazardLevel: 'high', quantity: 700, unit: 'mL', minimumStock: 200, location: 'Lab - Kimi Organike 3', expiryDate: '2026-12-20', supplier: 'Sigma-Aldrich', createdAt: '2025-04-01', updatedAt: '2026-03-14' },
+  { id: 'c-023', name: 'Tetrahydrofuran (THF)', casNumber: '109-99-9', formula: 'C₄H₈O', hazardLevel: 'high', quantity: 500, unit: 'mL', minimumStock: 150, location: 'Lab - Kimi Organike 3', expiryDate: '2026-06-30', supplier: 'Fisher Scientific', createdAt: '2025-05-15', updatedAt: '2026-03-15' },
+  { id: 'c-024', name: 'Palladium on Carbon (Pd/C)', casNumber: '7440-05-3', formula: 'Pd/C', hazardLevel: 'critical', quantity: 25, unit: 'g', minimumStock: 10, location: 'Lab - Kimi Organike 3', expiryDate: '2027-06-01', supplier: 'Sigma-Aldrich', createdAt: '2025-06-20', updatedAt: '2026-03-16' },
+  { id: 'c-025', name: 'Lithium Aluminum Hydride', casNumber: '16853-85-3', formula: 'LiAlH₄', hazardLevel: 'critical', quantity: 50, unit: 'g', minimumStock: 20, location: 'Lab - Kimi Organike 3', expiryDate: '2026-09-10', supplier: 'Merck', createdAt: '2025-07-10', updatedAt: '2026-03-12' },
+
+  // ── Lab - Kimi Analitike 1 ──
+  { id: 'c-026', name: 'Potassium Permanganate', casNumber: '7722-64-7', formula: 'KMnO₄', hazardLevel: 'high', quantity: 150, unit: 'g', minimumStock: 200, location: 'Lab - Kimi Analitike 1', expiryDate: '2026-08-20', supplier: 'Merck', createdAt: '2025-04-10', updatedAt: '2026-03-15' },
+  { id: 'c-027', name: 'EDTA Disodium Salt', casNumber: '6381-92-6', formula: 'Na₂EDTA', hazardLevel: 'low', quantity: 500, unit: 'g', minimumStock: 100, location: 'Lab - Kimi Analitike 1', expiryDate: '2027-10-01', supplier: 'Sigma-Aldrich', createdAt: '2025-03-05', updatedAt: '2026-03-14' },
+  { id: 'c-028', name: 'Potassium Dichromate', casNumber: '7778-50-9', formula: 'K₂Cr₂O₇', hazardLevel: 'critical', quantity: 200, unit: 'g', minimumStock: 50, location: 'Lab - Kimi Analitike 1', expiryDate: '2027-03-15', supplier: 'Merck', createdAt: '2025-02-10', updatedAt: '2026-03-16' },
+  { id: 'c-029', name: 'Methyl Orange', casNumber: '547-58-0', formula: 'C₁₄H₁₄N₃NaO₃S', hazardLevel: 'low', quantity: 30, unit: 'g', minimumStock: 10, location: 'Lab - Kimi Analitike 1', expiryDate: '2028-02-01', supplier: 'Fisher Scientific', createdAt: '2025-05-25', updatedAt: '2026-03-10' },
+
+  // ── Lab - Kimi Analitike 2 ──
+  { id: 'c-030', name: 'Nitric Acid', casNumber: '7697-37-2', formula: 'HNO₃', hazardLevel: 'critical', quantity: 1000, unit: 'mL', minimumStock: 300, location: 'Lab - Kimi Analitike 2', expiryDate: '2026-10-15', supplier: 'Sigma-Aldrich', createdAt: '2025-01-20', updatedAt: '2026-03-15' },
+  { id: 'c-031', name: 'Ammonium Molybdate', casNumber: '12054-85-2', formula: '(NH₄)₆Mo₇O₂₄', hazardLevel: 'medium', quantity: 250, unit: 'g', minimumStock: 50, location: 'Lab - Kimi Analitike 2', expiryDate: '2027-07-20', supplier: 'Merck', createdAt: '2025-04-05', updatedAt: '2026-03-14' },
+  { id: 'c-032', name: 'Starch Indicator', casNumber: '9005-84-9', formula: '(C₆H₁₀O₅)ₙ', hazardLevel: 'low', quantity: 100, unit: 'g', minimumStock: 30, location: 'Lab - Kimi Analitike 2', expiryDate: '2027-01-10', supplier: 'VWR', createdAt: '2025-06-15', updatedAt: '2026-03-12' },
+
+  // ── Lab - Bioteknologji ──
+  { id: 'c-033', name: 'Tris Base', casNumber: '77-86-1', formula: 'C₄H₁₁NO₃', hazardLevel: 'low', quantity: 1000, unit: 'g', minimumStock: 200, location: 'Lab - Bioteknologji', expiryDate: '2027-11-01', supplier: 'Sigma-Aldrich', createdAt: '2025-02-01', updatedAt: '2026-03-16' },
+  { id: 'c-034', name: 'Agarose', casNumber: '9012-36-6', formula: 'Agarose', hazardLevel: 'low', quantity: 500, unit: 'g', minimumStock: 100, location: 'Lab - Bioteknologji', expiryDate: '2027-08-15', supplier: 'Fisher Scientific', createdAt: '2025-03-10', updatedAt: '2026-03-14' },
+  { id: 'c-035', name: 'Ethidium Bromide', casNumber: '1239-45-8', formula: 'C₂₁H₂₀BrN₃', hazardLevel: 'critical', quantity: 10, unit: 'g', minimumStock: 5, location: 'Lab - Bioteknologji', expiryDate: '2026-05-20', supplier: 'Merck', createdAt: '2025-04-20', updatedAt: '2026-03-15' },
+  { id: 'c-036', name: 'SDS (Sodium Dodecyl Sulfate)', casNumber: '151-21-3', formula: 'C₁₂H₂₅NaO₄S', hazardLevel: 'medium', quantity: 300, unit: 'g', minimumStock: 80, location: 'Lab - Bioteknologji', expiryDate: '2027-04-30', supplier: 'VWR', createdAt: '2025-05-05', updatedAt: '2026-03-12' },
+
+  // ── Lab - Kimia e Mjedisit ──
+  { id: 'c-037', name: 'Calcium Carbonate', casNumber: '471-34-1', formula: 'CaCO₃', hazardLevel: 'low', quantity: 2000, unit: 'g', minimumStock: 500, location: 'Lab - Kimia e Mjedisit', expiryDate: '2028-03-01', supplier: 'VWR', createdAt: '2025-01-25', updatedAt: '2026-03-16' },
+  { id: 'c-038', name: 'Iron(III) Chloride', casNumber: '7705-08-0', formula: 'FeCl₃', hazardLevel: 'medium', quantity: 400, unit: 'g', minimumStock: 100, location: 'Lab - Kimia e Mjedisit', expiryDate: '2027-06-20', supplier: 'Sigma-Aldrich', createdAt: '2025-03-15', updatedAt: '2026-03-14' },
+  { id: 'c-039', name: 'Activated Carbon', casNumber: '7440-44-0', formula: 'C', hazardLevel: 'low', quantity: 1500, unit: 'g', minimumStock: 300, location: 'Lab - Kimia e Mjedisit', expiryDate: '2028-06-01', supplier: 'Merck', createdAt: '2025-06-10', updatedAt: '2026-03-15' },
+  { id: 'c-040', name: 'Hydrogen Peroxide 30%', casNumber: '7722-84-1', formula: 'H₂O₂', hazardLevel: 'high', quantity: 400, unit: 'mL', minimumStock: 500, location: 'Lab - Kimia e Mjedisit', expiryDate: '2026-03-25', supplier: 'Merck', createdAt: '2025-07-15', updatedAt: '2026-03-17' },
+
+  // ── Lab - Biokimia 1 ──
+  { id: 'c-041', name: 'Bovine Serum Albumin (BSA)', casNumber: '9048-46-8', formula: 'BSA', hazardLevel: 'low', quantity: 100, unit: 'g', minimumStock: 25, location: 'Lab - Biokimia 1', expiryDate: '2026-08-01', supplier: 'Sigma-Aldrich', createdAt: '2025-04-01', updatedAt: '2026-03-16' },
+  { id: 'c-042', name: 'Glucose', casNumber: '50-99-7', formula: 'C₆H₁₂O₆', hazardLevel: 'low', quantity: 2000, unit: 'g', minimumStock: 500, location: 'Lab - Biokimia 1', expiryDate: '2027-12-15', supplier: 'Fisher Scientific', createdAt: '2025-02-15', updatedAt: '2026-03-14' },
+  { id: 'c-043', name: 'Urea', casNumber: '57-13-6', formula: 'CO(NH₂)₂', hazardLevel: 'low', quantity: 1000, unit: 'g', minimumStock: 200, location: 'Lab - Biokimia 1', expiryDate: '2027-09-01', supplier: 'Merck', createdAt: '2025-05-20', updatedAt: '2026-03-15' },
+  { id: 'c-044', name: 'Coomassie Brilliant Blue', casNumber: '6104-59-2', formula: 'C₄₅H₄₄N₃NaO₇S₂', hazardLevel: 'low', quantity: 25, unit: 'g', minimumStock: 10, location: 'Lab - Biokimia 1', expiryDate: '2027-05-10', supplier: 'VWR', createdAt: '2025-06-25', updatedAt: '2026-03-12' },
+
+  // ── Hazard Vault ──
+  { id: 'c-045', name: 'Sulfuric Acid', casNumber: '7664-93-9', formula: 'H₂SO₄', hazardLevel: 'critical', quantity: 800, unit: 'mL', minimumStock: 200, location: 'Hazard Vault', expiryDate: '2026-06-30', supplier: 'Sigma-Aldrich', createdAt: '2025-01-15', updatedAt: '2026-03-12' },
+  { id: 'c-046', name: 'Hydrofluoric Acid', casNumber: '7664-39-3', formula: 'HF', hazardLevel: 'critical', quantity: 200, unit: 'mL', minimumStock: 100, location: 'Hazard Vault', expiryDate: '2026-05-15', supplier: 'Merck', createdAt: '2025-03-20', updatedAt: '2026-03-16' },
+  { id: 'c-047', name: 'Sodium Cyanide', casNumber: '143-33-9', formula: 'NaCN', hazardLevel: 'critical', quantity: 50, unit: 'g', minimumStock: 20, location: 'Hazard Vault', expiryDate: '2027-01-01', supplier: 'Sigma-Aldrich', createdAt: '2025-02-10', updatedAt: '2026-03-14' },
 ];
 
 export const mockRequests: ChemicalRequest[] = [
@@ -72,8 +132,8 @@ export const mockEquipment: Equipment[] = [
 ];
 
 export const mockDashboardStats: DashboardStats = {
-  totalChemicals: 10,
-  lowStockCount: 2,
+  totalChemicals: 47,
+  lowStockCount: 3,
   expiringCount: 2,
   pendingRequests: 2,
   activeExperiments: 1,
