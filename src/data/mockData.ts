@@ -132,8 +132,8 @@ export const mockEquipment: Equipment[] = [
 ];
 
 export const mockDashboardStats: DashboardStats = {
-  totalChemicals: 10,
-  lowStockCount: 2,
+  totalChemicals: 47,
+  lowStockCount: 3,
   expiringCount: 2,
   pendingRequests: 2,
   activeExperiments: 1,
