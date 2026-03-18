@@ -30,9 +30,17 @@ const hazardLabels: Record<HazardLevel, string> = {
   low: 'I Ulët', medium: 'Mesatar', high: 'I Lartë', critical: 'Kritik',
 };
 
+const labLocations = [
+  'Lab - Kimi e Përgjithshme', 'Lab - Kimi Fizike 1', 'Lab - Kimi Fizike 2',
+  'Lab - Kimi Organike 1', 'Lab - Kimi Organike 2', 'Lab - Kimi Organike 3',
+  'Lab - Kimi Analitike 1', 'Lab - Kimi Analitike 2', 'Lab - Bioteknologji',
+  'Lab - Kimia e Mjedisit', 'Lab - Biokimia 1', 'Hazard Vault',
+];
+
 export default function InventoryPage() {
   const [search, setSearch] = useState('');
   const [hazardFilter, setHazardFilter] = useState<HazardLevel | 'all'>('all');
+  const [labFilter, setLabFilter] = useState<string>('all');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [chemicals, setChemicals] = useState(mockChemicals);
 
@@ -48,9 +56,10 @@ export default function InventoryPage() {
       const matchSearch = !search || c.name.toLowerCase().includes(search.toLowerCase()) ||
         c.casNumber.includes(search) || c.formula.toLowerCase().includes(search.toLowerCase());
       const matchHazard = hazardFilter === 'all' || c.hazardLevel === hazardFilter;
-      return matchSearch && matchHazard;
+      const matchLab = labFilter === 'all' || c.location === labFilter;
+      return matchSearch && matchHazard && matchLab;
     });
-  }, [chemicals, search, hazardFilter]);
+  }, [chemicals, search, hazardFilter, labFilter]);
 
   const handleAdd = () => {
     const newChem: Chemical = {
@@ -98,6 +107,18 @@ export default function InventoryPage() {
               <SelectItem value="medium">Mesatar</SelectItem>
               <SelectItem value="high">I Lartë</SelectItem>
               <SelectItem value="critical">Kritik</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={labFilter} onValueChange={v => setLabFilter(v)}>
+            <SelectTrigger className="w-48 h-9 text-sm bg-muted border-border">
+              <Package className="w-3.5 h-3.5 mr-2" />
+              <SelectValue placeholder="Laboratori" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Të gjitha laboratorët</SelectItem>
+              {labLocations.map(lab => (
+                <SelectItem key={lab} value={lab}>{lab.replace('Lab - ', '')}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
