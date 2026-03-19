@@ -15,6 +15,7 @@ const navItems = [
   { label: 'Inventari', icon: Package, path: '/inventory' },
   { label: 'Kërkesat', icon: FileText, path: '/requests' },
   { label: 'Eksperimentet', icon: Beaker, path: '/experiments' },
+  { label: 'Orari', icon: CalendarDays, path: '/schedule' },
   { label: 'Pajisjet', icon: Wrench, path: '/equipment' },
   { label: 'Incidentet', icon: Shield, path: '/incidents' },
   { label: 'Mbetjet', icon: Trash2, path: '/waste' },
