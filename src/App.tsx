@@ -16,6 +16,7 @@ import UsersPage from "@/pages/UsersPage";
 import AnalyticsPage from "@/pages/Analytics";
 import IncidentsPage from "@/pages/Incidents";
 import WastePage from "@/pages/Waste";
+import SchedulePage from "@/pages/Schedule";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
