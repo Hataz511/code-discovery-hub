@@ -310,6 +310,60 @@ export type Database = {
         }
         Relationships: []
       }
+      schedules: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          day: string
+          end_time: string
+          id: string
+          level: string
+          professor: string
+          program: string
+          room: string
+          semester: number
+          start_time: string
+          subject: string
+          type: string
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          day: string
+          end_time: string
+          id?: string
+          level?: string
+          professor: string
+          program: string
+          room: string
+          semester?: number
+          start_time: string
+          subject: string
+          type?: string
+          updated_at?: string
+          year?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          day?: string
+          end_time?: string
+          id?: string
+          level?: string
+          professor?: string
+          program?: string
+          room?: string
+          semester?: number
+          start_time?: string
+          subject?: string
+          type?: string
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
