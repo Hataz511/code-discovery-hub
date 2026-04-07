@@ -17,6 +17,7 @@ import AnalyticsPage from "@/pages/Analytics";
 import IncidentsPage from "@/pages/Incidents";
 import WastePage from "@/pages/Waste";
 import SchedulePage from "@/pages/Schedule";
+import LabSessionsPage from "@/pages/LabSessions";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ function AppContent() {
           <Route path="/experiments" element={<ExperimentsPage />} />
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/lab-sessions" element={<LabSessionsPage />} />
           <Route path="/incidents" element={<IncidentsPage />} />
           <Route path="/waste" element={<WastePage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />

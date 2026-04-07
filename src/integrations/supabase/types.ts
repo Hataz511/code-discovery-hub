@@ -80,6 +80,50 @@ export type Database = {
         }
         Relationships: []
       }
+      chemical_locations: {
+        Row: {
+          chemical_id: string
+          created_at: string
+          id: string
+          lab_name: string
+          notes: string | null
+          quantity: number
+          unit: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          chemical_id: string
+          created_at?: string
+          id?: string
+          lab_name: string
+          notes?: string | null
+          quantity?: number
+          unit?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          chemical_id?: string
+          created_at?: string
+          id?: string
+          lab_name?: string
+          notes?: string | null
+          quantity?: number
+          unit?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chemical_locations_chemical_id_fkey"
+            columns: ["chemical_id"]
+            isOneToOne: false
+            referencedRelation: "chemicals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chemical_requests: {
         Row: {
           chemical_id: string
@@ -264,6 +308,63 @@ export type Database = {
           student_id?: string
           supervisor_id?: string | null
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lab_sessions: {
+        Row: {
+          chemicals_used: Json | null
+          created_at: string
+          equipment_notes: string | null
+          equipment_status: string
+          equipment_used: Json | null
+          experiment_description: string | null
+          experiment_title: string
+          id: string
+          lab_name: string
+          session_date: string
+          status: string
+          student_id: string
+          student_name: string
+          supervisor_id: string | null
+          supervisor_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          chemicals_used?: Json | null
+          created_at?: string
+          equipment_notes?: string | null
+          equipment_status?: string
+          equipment_used?: Json | null
+          experiment_description?: string | null
+          experiment_title: string
+          id?: string
+          lab_name: string
+          session_date?: string
+          status?: string
+          student_id: string
+          student_name: string
+          supervisor_id?: string | null
+          supervisor_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          chemicals_used?: Json | null
+          created_at?: string
+          equipment_notes?: string | null
+          equipment_status?: string
+          equipment_used?: Json | null
+          experiment_description?: string | null
+          experiment_title?: string
+          id?: string
+          lab_name?: string
+          session_date?: string
+          status?: string
+          student_id?: string
+          student_name?: string
+          supervisor_id?: string | null
+          supervisor_name?: string | null
           updated_at?: string
         }
         Relationships: []

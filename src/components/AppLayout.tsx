@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import {
   FlaskConical, LayoutDashboard, Package, FileText, Beaker,
   Shield, Wrench, Trash2, BarChart3, ScrollText, Users,
-  ChevronLeft, Bell, LogOut, Menu, CalendarDays
+  ChevronLeft, Bell, LogOut, Menu, CalendarDays, ClipboardCheck
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ const navItems = [
   { label: 'Kërkesat', icon: FileText, path: '/requests' },
   { label: 'Eksperimentet', icon: Beaker, path: '/experiments' },
   { label: 'Orari', icon: CalendarDays, path: '/schedule' },
+  { label: 'Mbikëqyrja', icon: ClipboardCheck, path: '/lab-sessions' },
   { label: 'Pajisjet', icon: Wrench, path: '/equipment' },
   { label: 'Incidentet', icon: Shield, path: '/incidents' },
   { label: 'Mbetjet', icon: Trash2, path: '/waste' },
