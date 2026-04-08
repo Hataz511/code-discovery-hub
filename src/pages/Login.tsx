@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FlaskConical, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
+import { FlaskConical, Lock, Eye, EyeOff, UserPlus, KeyRound } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,6 +19,25 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [forgotMode, setForgotMode] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetSent, setResetSent] = useState(false);
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!resetEmail) { setError('Shkruaj emailin tënd'); return; }
+    setLoading(true);
+    setError('');
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      setError(error.message);
+    } else {
+      setResetSent(true);
+    }
+    setLoading(false);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +83,33 @@ export default function LoginPage() {
         </div>
 
         <div className="card-elevated p-6">
-          {step === 'login' ? (
+          {forgotMode ? (
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <div className="flex items-center gap-2 mb-4">
+                <KeyRound className="w-4 h-4 text-primary" />
+                <h2 className="font-display text-sm font-semibold">Rivendos Fjalëkalimin</h2>
+              </div>
+              {resetSent ? (
+                <p className="text-xs text-success">Kontrollo emailin tënd për linkun e rivendosjes.</p>
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="resetEmail" className="text-xs">Email</Label>
+                    <Input id="resetEmail" type="email" placeholder="email@uni.edu" value={resetEmail}
+                      onChange={e => setResetEmail(e.target.value)} className="h-9 text-sm bg-muted border-border" />
+                  </div>
+                  {error && <p className="text-xs text-destructive">{error}</p>}
+                  <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
+                    {loading ? 'Duke dërguar...' : 'Dërgo linkun'}
+                  </Button>
+                </>
+              )}
+              <button type="button" onClick={() => { setForgotMode(false); setError(''); setResetSent(false); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                ← Kthehu te identifikimi
+              </button>
+            </form>
+          ) : step === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="w-4 h-4 text-primary" />
@@ -95,6 +141,11 @@ export default function LoginPage() {
               <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
                 {loading ? 'Duke hyrë...' : 'Hyr'}
               </Button>
+
+              <button type="button" onClick={() => { setForgotMode(true); setError(''); setSuccess(''); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                Ke harruar fjalëkalimin? <span className="text-primary">Rivendos</span>
+              </button>
 
               <button type="button" onClick={() => { setStep('register'); setError(''); setSuccess(''); }}
                 className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
