@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AppLayout from "@/components/AppLayout";
 import LoginPage from "@/pages/Login";
+import ResetPasswordPage from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import InventoryPage from "@/pages/Inventory";
 import RequestsPage from "@/pages/Requests";
@@ -34,6 +35,18 @@ function AppContent() {
   }
 
   if (!session) {
+    const hash = window.location.hash;
+    const path = window.location.pathname;
+    if (path === '/reset-password' || hash.includes('type=recovery')) {
+      return (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="*" element={<ResetPasswordPage />} />
+          </Routes>
+        </BrowserRouter>
+      );
+    }
     return <LoginPage />;
   }
 

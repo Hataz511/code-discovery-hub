@@ -83,7 +83,33 @@ export default function LoginPage() {
         </div>
 
         <div className="card-elevated p-6">
-          {step === 'login' ? (
+          {forgotMode ? (
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <div className="flex items-center gap-2 mb-4">
+                <KeyRound className="w-4 h-4 text-primary" />
+                <h2 className="font-display text-sm font-semibold">Rivendos Fjalëkalimin</h2>
+              </div>
+              {resetSent ? (
+                <p className="text-xs text-success">Kontrollo emailin tënd për linkun e rivendosjes.</p>
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="resetEmail" className="text-xs">Email</Label>
+                    <Input id="resetEmail" type="email" placeholder="email@uni.edu" value={resetEmail}
+                      onChange={e => setResetEmail(e.target.value)} className="h-9 text-sm bg-muted border-border" />
+                  </div>
+                  {error && <p className="text-xs text-destructive">{error}</p>}
+                  <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
+                    {loading ? 'Duke dërguar...' : 'Dërgo linkun'}
+                  </Button>
+                </>
+              )}
+              <button type="button" onClick={() => { setForgotMode(false); setError(''); setResetSent(false); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                ← Kthehu te identifikimi
+              </button>
+            </form>
+          ) : step === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="w-4 h-4 text-primary" />
@@ -115,6 +141,11 @@ export default function LoginPage() {
               <Button type="submit" className="w-full h-9 text-sm font-medium" disabled={loading}>
                 {loading ? 'Duke hyrë...' : 'Hyr'}
               </Button>
+
+              <button type="button" onClick={() => { setForgotMode(true); setError(''); setSuccess(''); }}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
+                Ke harruar fjalëkalimin? <span className="text-primary">Rivendos</span>
+              </button>
 
               <button type="button" onClick={() => { setStep('register'); setError(''); setSuccess(''); }}
                 className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors">
