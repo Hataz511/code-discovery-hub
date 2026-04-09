@@ -25,6 +25,18 @@ const queryClient = new QueryClient();
 
 function AppContent() {
   const { session, loading } = useAuth();
+  const [isRecovery, setIsRecovery] = useState(() => {
+    return window.location.hash.includes('type=recovery') || window.location.pathname === '/reset-password';
+  });
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsRecovery(true);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   if (loading) {
     return (
@@ -34,19 +46,18 @@ function AppContent() {
     );
   }
 
+  // Show reset password page for recovery flow, even if session exists
+  if (isRecovery) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<ResetPasswordPage onComplete={() => setIsRecovery(false)} />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
   if (!session) {
-    const hash = window.location.hash;
-    const path = window.location.pathname;
-    if (path === '/reset-password' || hash.includes('type=recovery')) {
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="*" element={<ResetPasswordPage />} />
-          </Routes>
-        </BrowserRouter>
-      );
-    }
     return <LoginPage />;
   }
 
