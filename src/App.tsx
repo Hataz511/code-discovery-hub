@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { supabase } from "@/integrations/supabase/client";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AppLayout from "@/components/AppLayout";
 import LoginPage from "@/pages/Login";
@@ -25,6 +27,18 @@ const queryClient = new QueryClient();
 
 function AppContent() {
   const { session, loading } = useAuth();
+  const [isRecovery, setIsRecovery] = useState(() => {
+    return window.location.hash.includes('type=recovery') || window.location.pathname === '/reset-password';
+  });
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsRecovery(true);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   if (loading) {
     return (
@@ -34,19 +48,18 @@ function AppContent() {
     );
   }
 
+  // Show reset password page for recovery flow, even if session exists
+  if (isRecovery) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<ResetPasswordPage onComplete={() => setIsRecovery(false)} />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
   if (!session) {
-    const hash = window.location.hash;
-    const path = window.location.pathname;
-    if (path === '/reset-password' || hash.includes('type=recovery')) {
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="*" element={<ResetPasswordPage />} />
-          </Routes>
-        </BrowserRouter>
-      );
-    }
     return <LoginPage />;
   }
 
