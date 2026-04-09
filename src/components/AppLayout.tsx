@@ -44,6 +44,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const navItems = useMemo(() => {
     if (roles.length === 0) return allNavItems;
     return allNavItems.filter(item => item.roles.some(r => roles.includes(r as any)));
+  }, [roles]);
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       {mobileOpen && (
