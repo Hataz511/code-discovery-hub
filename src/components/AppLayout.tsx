@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import {
@@ -10,19 +10,19 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
-const navItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, path: '/' },
-  { label: 'Inventari', icon: Package, path: '/inventory' },
-  { label: 'Kërkesat', icon: FileText, path: '/requests' },
-  { label: 'Eksperimentet', icon: Beaker, path: '/experiments' },
-  { label: 'Orari', icon: CalendarDays, path: '/schedule' },
-  { label: 'Mbikëqyrja', icon: ClipboardCheck, path: '/lab-sessions' },
-  { label: 'Pajisjet', icon: Wrench, path: '/equipment' },
-  { label: 'Incidentet', icon: Shield, path: '/incidents' },
-  { label: 'Mbetjet', icon: Trash2, path: '/waste' },
-  { label: 'Analitika', icon: BarChart3, path: '/analytics' },
-  { label: 'Audit Log', icon: ScrollText, path: '/audit' },
-  { label: 'Përdoruesit', icon: Users, path: '/users' },
+const allNavItems = [
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/', roles: ['admin', 'lab_manager', 'professor', 'lab_technician', 'lab_supervisor', 'student', 'auditor'] },
+  { label: 'Inventari', icon: Package, path: '/inventory', roles: ['admin', 'lab_manager', 'lab_technician'] },
+  { label: 'Kërkesat', icon: FileText, path: '/requests', roles: ['admin', 'lab_manager', 'professor', 'lab_technician', 'student'] },
+  { label: 'Eksperimentet', icon: Beaker, path: '/experiments', roles: ['admin', 'lab_manager', 'professor', 'lab_supervisor', 'student'] },
+  { label: 'Orari', icon: CalendarDays, path: '/schedule', roles: ['admin', 'lab_manager', 'professor', 'student'] },
+  { label: 'Mbikëqyrja', icon: ClipboardCheck, path: '/lab-sessions', roles: ['admin', 'lab_manager', 'lab_supervisor', 'lab_technician'] },
+  { label: 'Pajisjet', icon: Wrench, path: '/equipment', roles: ['admin', 'lab_manager', 'lab_technician'] },
+  { label: 'Incidentet', icon: Shield, path: '/incidents', roles: ['admin', 'lab_manager', 'lab_technician', 'lab_supervisor', 'professor'] },
+  { label: 'Mbetjet', icon: Trash2, path: '/waste', roles: ['admin', 'lab_manager', 'lab_technician'] },
+  { label: 'Analitika', icon: BarChart3, path: '/analytics', roles: ['admin', 'lab_manager', 'auditor'] },
+  { label: 'Audit Log', icon: ScrollText, path: '/audit', roles: ['admin', 'auditor'] },
+  { label: 'Përdoruesit', icon: Users, path: '/users', roles: ['admin'] },
 ];
 
 const roleLabels: Record<string, string> = {
@@ -40,6 +40,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { profile, roles, signOut } = useAuth();
+
+  const navItems = useMemo(() => {
+    if (roles.length === 0) return allNavItems;
+    return allNavItems.filter(item => item.roles.some(r => roles.includes(r as any)));
+  }, [roles]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
