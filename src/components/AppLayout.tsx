@@ -41,7 +41,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { profile, roles, signOut } = useAuth();
 
-  return (
+  const navItems = useMemo(() => {
+    if (roles.length === 0) return allNavItems;
+    return allNavItems.filter(item => item.roles.some(r => roles.includes(r as any)));
+  }, [roles]);
     <div className="flex h-screen overflow-hidden bg-background">
       {mobileOpen && (
         <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setMobileOpen(false)} />
