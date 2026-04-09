@@ -12,20 +12,6 @@ export default function ResetPasswordPage({ onComplete }: { onComplete?: () => v
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [isRecovery, setIsRecovery] = useState(() => {
-    const hash = window.location.hash;
-    const path = window.location.pathname;
-    return hash.includes('type=recovery') || path === '/reset-password';
-  });
-
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        setIsRecovery(true);
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, []);
 
   const handleReset = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,14 +27,6 @@ export default function ResetPasswordPage({ onComplete }: { onComplete?: () => v
     }
     setLoading(false);
   };
-
-  if (!isRecovery) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <p className="text-muted-foreground text-sm">Link i pavlefshëm ose i skaduar. Kërko një link të ri.</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
