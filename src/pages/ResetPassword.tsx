@@ -69,7 +69,7 @@ export default function ResetPasswordPage({ onComplete }: { onComplete?: () => v
           {success ? (
             <div className="text-center space-y-3">
               <p className="text-sm text-foreground font-medium">Fjalëkalimi u ndryshua me sukses!</p>
-              <Button className="w-full h-9 text-sm" onClick={() => window.location.href = '/'}>
+              <Button className="w-full h-9 text-sm" onClick={() => { onComplete?.(); window.location.href = '/'; }}>
                 Hyr në sistem
               </Button>
             </div>
